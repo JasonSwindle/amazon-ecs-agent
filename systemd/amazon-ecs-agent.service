@@ -12,11 +12,11 @@ Environment=ECS_AGENT_VERSION=latest
 
 # The logic around the ECS Agent restart:
 #   - Restart on failure
-#   - Wait 30 seconds between restart
+#   - Wait 15 seconds between restart
 #   - If the ECS Agent restarts more then 10 times in 5 minutes,
 # it will stay dead
 Restart=on-failure
-RestartSec=30s
+RestartSec=15s
 StartLimitInterval=5min
 StartLimitBurst=10
 
@@ -27,20 +27,26 @@ ExecStartPre=-/bin/mkdir -pv /var/log/ecs /var/ecs-data /etc/ecs
 # as it will send a SIGTEM and wait 10 seconds before sending SIGKILL
 ExecStartPre=-/usr/bin/docker stop --time 10 ecs-agent
 
+# Free up the container name "ecs-agent"
+ExecStartPre=-/usr/bin/docker rm ecs-agent
+
 # The ECS Agent is started via docker run
 ExecStart=/usr/bin/docker run --name ecs-agent \
-    --privileged \
-    --volume=/var/run:/var/run \
-    --volume=/var/log/ecs/:/log:Z \
-    --volume=/var/lib/ecs/data:/data:Z \
-    --volume=/etc/ecs:/etc/ecs \
-    --net=host \
-    --env-file=/etc/ecs/ecs.config \
-    amazon/amazon-ecs-agent:{ECS_AGENT_VERSION}
+--privileged \
+--volume=/var/run:/var/run \
+--volume=/var/log/ecs/:/log:Z \
+--volume=/var/lib/ecs/data:/data:Z \
+--volume=/etc/ecs:/etc/ecs \
+--net=host \
+--env-file=/etc/ecs/ecs.config \
+amazon/amazon-ecs-agent:${ECS_AGENT_VERSION}
 
 # Docker stop is used as it will send a SIGTEM and wait 10 seconds
 # before sending SIGKILL
 ExecStop=/usr/bin/docker stop --time 10 ecs-agent
+
+# Free up the container name "ecs-agent"
+ExecStop=-/usr/bin/docker rm ecs-agent
 
 [Install]
 WantedBy=default.target
