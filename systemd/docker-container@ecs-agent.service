@@ -1,9 +1,13 @@
 [Unit]
 Description=Docker Container %I
+Documentation=https://docs.aws.amazon.com/AmazonECS/latest/developerguide/
 Requires=docker.service
 After=docker.service
 
 [Service]
+# It is recommended in production to version pin the ECS Agent 
+# to a known version vs running the latest flag on the docker container.
+Environment=ECS_AGENT_VERSION=latest
 Restart=unless-stopped
 ExecStartPre=-/usr/bin/docker stop --time 10 %i 
 ExecStart=/usr/bin/docker run --name %i \
@@ -15,7 +19,7 @@ ExecStart=/usr/bin/docker run --name %i \
 --volume=/etc/ecs:/etc/ecs \
 --net=host \
 --env-file=/etc/ecs/ecs.config \
-amazon/amazon-ecs-agent:latest
+amazon/amazon-ecs-agent:{ECS_AGENT_VERSION}
 ExecStop=/usr/bin/docker stop --time 10 %i
 
 [Install]
