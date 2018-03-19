@@ -10,6 +10,7 @@ After=docker.service
 # See https://github.com/aws/amazon-ecs-agent/releases for agent versions.
 Environment=ECS_AGENT_VERSION=latest
 Restart=unless-stopped
+ExecStartPre=-/bin/mkdir -pv /var/log/ecs /var/ecs-data /etc/ecs
 ExecStartPre=-/usr/bin/docker stop --time 10 %i 
 ExecStart=/usr/bin/docker run --name %i \
 --privileged \
