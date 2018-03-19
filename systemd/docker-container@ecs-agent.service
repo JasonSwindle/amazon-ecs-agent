@@ -7,6 +7,7 @@ After=docker.service
 [Service]
 # It is recommended in production to version pin the ECS Agent 
 # to a known version vs running the latest flag on the docker container.
+# See https://github.com/aws/amazon-ecs-agent/releases for agent versions.
 Environment=ECS_AGENT_VERSION=latest
 Restart=unless-stopped
 ExecStartPre=-/usr/bin/docker stop --time 10 %i 
