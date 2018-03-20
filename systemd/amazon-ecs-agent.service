@@ -27,7 +27,7 @@ Environment=ECS_AGENT_VERSION=latest
 #   - Restart on failure
 #   - Wait 15 seconds between restart
 #   - If the ECS Agent restarts more then 10 times in 5 minutes,
-# it will stay dead
+# it will stay failed
 Restart=on-failure
 RestartSec=15s
 StartLimitInterval=5min
