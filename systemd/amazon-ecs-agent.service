@@ -36,7 +36,7 @@ Environment=ECS_AGENT_VERSION=latest
 # The logic around the ECS Agent restart:
 #   - Restart on failure
 #   - Wait 5 seconds between restart
-#   - If the ECS Agent restarts more then 10 times in 5 minutes,
+#   - If the ECS Agent restarts more then 15 times in 5 minutes,
 # it will stay failed
 Restart=on-failure
 RestartSec=5s
