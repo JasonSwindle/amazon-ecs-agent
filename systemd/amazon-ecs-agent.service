@@ -54,7 +54,7 @@ ExecStartPre=/usr/sbin/iptables -t nat -A OUTPUT -d 169.254.170.2 -p tcp -m tcp 
 ExecStartPre=-/bin/mkdir -pv /var/ecs-data /etc/ecs /var/log/ecs
 
 # Download the Amazon ECS CLI plugins needed for awsvpc networm mode
-ExecStartPre=/usr/bin/bash -c "[ "$(ls -A /opt/aws/amazon-ecs-cni-plugins)" ] || /usr/bin/aws s3 cp --recursive s3://amazon-ecs-cni-plugins-dev-binaries/11d4879/ /opt/aws/amazon-ecs-cni-plugins"
+ExecStartPre=/usr/bin/bash -c "[ `$(ls -A /opt/aws/amazon-ecs-cni-plugins)` ] || /usr/bin/aws s3 cp --recursive s3://amazon-ecs-cni-plugins-dev-binaries/11d4879/ /opt/aws/amazon-ecs-cni-plugins"
 ExecStartPre=/usr/bin/bash -c "for i in `/usr/bin/ls /opt/aws/amazon-ecs-cni-plugins`; do /usr/bin/chmod +x /opt/aws/amazon-ecs-cni-plugins/$i; done"
 
 # Stop the ECS Agent if it was running. Docker stop is used
