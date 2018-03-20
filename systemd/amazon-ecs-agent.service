@@ -22,7 +22,7 @@ After=docker.service
 # to a known version vs running the latest flag on the docker container.
 # See https://github.com/aws/amazon-ecs-agent/releases for agent versions.
 
-# It is recommended to use a systemd drop-in file vs editing this line.
+# It is recommended to use a systemd drop-in file vs editing this line or file.
 # Your drop-in could look like this:
 #
 #       [Service]
