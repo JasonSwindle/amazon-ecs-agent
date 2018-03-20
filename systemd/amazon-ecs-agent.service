@@ -23,12 +23,12 @@ After=docker.service
 # See https://github.com/aws/amazon-ecs-agent/releases for agent versions.
 
 # It is recommended to use a systemd drop-in file vs editing this line or file.
-# Your drop-in could look like this:
+# Your drop-in file could look like this:
 #
 #       [Service]
 #       Environment=ECS_AGENT_VERSION=v1.17.2
 #
-# Depend on the OS, it could be place in /etc/systemd/system/amazon-ecs-agent.d/
+# Depend on the OS, it could be placed in /etc/systemd/system/amazon-ecs-agent.d
 # , and named ecs_agent_version_override.conf
 Environment=ECS_AGENT_VERSION=latest
 
