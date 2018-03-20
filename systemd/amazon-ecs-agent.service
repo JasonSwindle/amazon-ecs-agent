@@ -35,13 +35,13 @@ Environment=ECS_AGENT_VERSION=latest
 
 # The logic around the ECS Agent restart:
 #   - Restart on failure
-#   - Wait 15 seconds between restart
+#   - Wait 5 seconds between restart
 #   - If the ECS Agent restarts more then 10 times in 5 minutes,
 # it will stay failed
 Restart=on-failure
 RestartSec=5s
 StartLimitInterval=5min
-StartLimitBurst=10
+StartLimitBurst=15
 
 # Allow the port proxy to route traffic using loopback addresses
 ExecStartPre=/usr/sbin/sysctl net.ipv4.conf.all.route_localnet=1
